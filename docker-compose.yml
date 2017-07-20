@@ -2,6 +2,7 @@ version: '2'
 
 volumes:
   db_data:
+  nodemodules:
 
 services:
   web:
@@ -28,3 +29,13 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     env_file: .env
+
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile-node
+    volumes:
+      - ./public:/usr/src/app/public
+      - ./resources:/usr/src/app/resources
+      - ./webpack.config.js:/usr/src/app/webpack.config.js
+      - nodemodules:/usr/src/app/node_modules

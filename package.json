@@ -1,0 +1,13 @@
+{
+  "author": "Andreas Fridlund",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "webpack": "^2.7",
+    "webpack-dev-server": "^2.5"
+  },
+  "dependencies": {
+
+  }
+}

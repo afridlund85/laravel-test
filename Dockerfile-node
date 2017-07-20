@@ -1,0 +1,18 @@
+FROM node:8.2
+
+RUN mkdir -p /tmp
+WORKDIR /tmp
+COPY ./package.json /tmp/
+RUN npm install
+
+
+RUN mkdir -p /usr/src/app
+COPY ./public /usr/src/app/public
+COPY ./public /usr/src/app/resources
+RUN cp /tmp/package.json /usr/src/app/package.json \
+  && cp -a /tmp/node_modules /usr/src/app/ \
+  && chown -R node:node /usr/src/app/
+
+USER node
+WORKDIR /usr/src/app
+CMD ["npm", "start"]
