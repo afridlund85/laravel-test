@@ -1,7 +1,8 @@
 const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 
-const _root = path.resolve(__dirname, '..')
+const _root = path.resolve(__dirname)
 
 function rootPath(args) {
   args = Array.prototype.slice.call(arguments, 0)
@@ -10,13 +11,30 @@ function rootPath(args) {
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8080'
+    rootPath('resources/assets/js/app.js')
   ],
-  devServer: {
-    contentBase: rootPath('public'),
-    publicPath: '',
-    port: 8080,
-    host: '0.0.0.0',
-    inline: true
-  }
+  output: {
+    path: rootPath('public'),
+    filename: 'js/app.js'
+  },
+  devtool: 'inline-source-map',
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 500
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s?css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
+      }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin('css/app.css')
+  ]
 }

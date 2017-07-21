@@ -35,7 +35,5 @@ services:
       context: .
       dockerfile: Dockerfile-node
     volumes:
-      - ./public:/usr/src/app/public
-      - ./resources:/usr/src/app/resources
-      - ./webpack.config.js:/usr/src/app/webpack.config.js
+      - .:/usr/src/app
       - nodemodules:/usr/src/app/node_modules
